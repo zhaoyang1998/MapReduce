@@ -1,4 +1,4 @@
-package com.atzy.mapreducecount2;
+package com.atzy.mapreduce.wordcount2;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;

@@ -1,4 +1,4 @@
-package com.atzy.mapreducecount2;
+package com.atzy.mapreduce.wordcount2;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
