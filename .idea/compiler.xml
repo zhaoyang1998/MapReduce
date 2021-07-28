@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="maven-wordcount" />
+        <module name="MapReduce功能验证" />
       </profile>
     </annotationProcessing>
   </component>
