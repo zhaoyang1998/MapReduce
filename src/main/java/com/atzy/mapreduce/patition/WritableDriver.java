@@ -1,4 +1,4 @@
-package com.atzy.mapreduce.writable;
+package com.atzy.mapreduce.patition;
 
 
 import org.apache.hadoop.conf.Configuration;
@@ -36,9 +36,6 @@ public class WritableDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FlowBean.class);
 
-        job.setPartitionerClass(patition.class);
-        job.setNumReduceTasks(4);
-
         //6 设置数据的输入和输出路径
         try {
             FileInputFormat.setInputPaths(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/inwrite"));
@@ -46,7 +43,6 @@ public class WritableDriver {
             e.printStackTrace();
         }
         FileOutputFormat.setOutputPath(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/outwrite634"));
-
 
         //7提交joj
         boolean result= false;
