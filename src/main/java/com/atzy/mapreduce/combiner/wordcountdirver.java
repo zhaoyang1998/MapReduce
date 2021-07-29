@@ -1,8 +1,8 @@
-package com.atzy.mapreduce.writable;
-
+package com.atzy.mapreduce.combiner;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -10,46 +10,46 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class WritableDriver {
+public class wordcountdirver {
     public static void main(String[] args) {
-        //1.获取job
+
+        //1 获取job
         Configuration conf = new Configuration();
-        Job job= null;
+        Job job = null;
         try {
             job = Job.getInstance(conf);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //2.设置jar包
-        job.setJarByClass(WritableDriver.class);
+        //2 设置jar包路径
+        job.setJarByClass(wordcountdirver.class);
 
-        //3 管理hadoop的mao和reduece
-        job.setMapperClass(WritableMap.class);
-        job.setReducerClass(WritableReduce.class);
+        //3 关联mapper和reducer
+        job.setMapperClass(wordcountmapper.class);
+        job.setReducerClass(wordcountreducer.class);
 
-        //4 设置map的输出key和value
+        //4 设置mapper的输出的kv类型
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(FlowBean.class);
+        job.setMapOutputValueClass(IntWritable.class);
 
-        //5 设置最终的输出key和value
+        //5 设置最终输出的kv类型
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(FlowBean.class);
+        job.setOutputValueClass(IntWritable.class);
 
-//        job.setPartitionerClass(patition.class);
-//        job.setNumReduceTasks(4);
 
-        //6 设置数据的输入和输出路径
+        job.setCombinerClass(wordcountCombiner.class);
+
+        //6 设置输入路径和输出路径
         try {
-            FileInputFormat.setInputPaths(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/inwrite"));
+            FileInputFormat.setInputPaths(job, new Path("/Users/zhaoyang/Desktop/hadoop学习/input"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FileOutputFormat.setOutputPath(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/outwrite"));
+        FileOutputFormat.setOutputPath(job, new Path("/Users/zhaoyang/Desktop/hadoop学习/output3"));
 
-
-        //7提交joj
-        boolean result= false;
+        //7 提交job
+        boolean result = false;
         try {
             result = job.waitForCompletion(true);
         } catch (IOException e) {
@@ -59,7 +59,8 @@ public class WritableDriver {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.exit(result?0:1);
-    }
 
+        System.exit(result ? 0 : 1);
+
+    }
 }

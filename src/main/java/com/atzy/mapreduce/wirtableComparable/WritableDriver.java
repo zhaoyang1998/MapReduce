@@ -1,4 +1,4 @@
-package com.atzy.mapreduce.writable;
+package com.atzy.mapreduce.wirtableComparable;
 
 
 import org.apache.hadoop.conf.Configuration;
@@ -29,23 +29,21 @@ public class WritableDriver {
         job.setReducerClass(WritableReduce.class);
 
         //4 设置map的输出key和value
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(FlowBean.class);
+        job.setMapOutputKeyClass(FlowBean.class);
+        job.setMapOutputValueClass(Text.class);
 
         //5 设置最终的输出key和value
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(FlowBean.class);
 
-//        job.setPartitionerClass(patition.class);
-//        job.setNumReduceTasks(4);
 
         //6 设置数据的输入和输出路径
         try {
-            FileInputFormat.setInputPaths(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/inwrite"));
+            FileInputFormat.setInputPaths(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/outwrite"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FileOutputFormat.setOutputPath(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/outwrite"));
+        FileOutputFormat.setOutputPath(job,new Path("/Users/zhaoyang/Desktop/hadoop学习/outwrite66"));
 
 
         //7提交joj
